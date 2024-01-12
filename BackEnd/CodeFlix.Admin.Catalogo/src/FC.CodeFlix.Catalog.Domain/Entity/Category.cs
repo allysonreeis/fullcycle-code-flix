@@ -23,24 +23,10 @@ public class Category : AggregateRoot
     private void Validate()
     {
         DomainValidation.NotNullOrEmpty(Name, nameof(Name));
-        // if (string.IsNullOrWhiteSpace(Name))
-        // throw new EntityValidationException($"{nameof(Name)} should not be empty or null");
-
         DomainValidation.MinLength(Name, 3, nameof(Name));
-        // if (Name.Length < 3)
-        // throw new EntityValidationException($"{nameof(Name)} should be at least 3 characters long");
-
         DomainValidation.MaxLength(Name, 255, nameof(Name));
-        // if (Name.Length > 255)
-        // throw new EntityValidationException($"{nameof(Name)} should be at most 255 characters long");
-
         DomainValidation.NotNull(Description, nameof(Description));
-        // if (string.IsNullOrWhiteSpace(Description))
-        // throw new EntityValidationException($"{nameof(Description)} should not be null");
-
         DomainValidation.MaxLength(Description, 10_000, nameof(Description));
-        // if (Description.Length > 10_000)
-        // throw new EntityValidationException($"{nameof(Description)} should be less or equal to 10.000 characters long");
     }
 
     public void Activate()
