@@ -205,7 +205,7 @@ public class CategoryTest
     public void ShouldThrowErrorWhenUpdateteWithDescriptionGreaterThan10_000Characters()
     {
         var category = _fixture.GetValidCategory();
-        var description = _fixture.GetInvalidCategoryName();
+        var description = _fixture.GetInvalidCategoryDescription();
         var action = () => category.Update(category.Name, description);
 
         action.Should().Throw<EntityValidationException>()

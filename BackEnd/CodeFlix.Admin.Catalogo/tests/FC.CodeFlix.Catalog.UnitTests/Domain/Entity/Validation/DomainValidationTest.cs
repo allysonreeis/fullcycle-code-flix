@@ -1,6 +1,6 @@
 using Bogus;
 using FC.CodeFlix.Catalog.Domain.Exceptions;
-using FC.CodeFlix.Catalog.Domain.SeedWork;
+using FC.CodeFlix.Catalog.Domain.Validation;
 using FluentAssertions;
 
 namespace FC.CodeFlix.Catalog.UnitTests.Domain.Entity.Validation;

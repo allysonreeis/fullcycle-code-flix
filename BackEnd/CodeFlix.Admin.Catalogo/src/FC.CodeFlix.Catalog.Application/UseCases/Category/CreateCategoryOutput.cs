@@ -1,3 +1,5 @@
+using DomainEntity = FC.CodeFlix.Catalog.Domain.Entity;
+
 namespace FC.CodeFlix.Catalog.Application.UseCases.Category;
 
 public record CreateCategoryOutput
@@ -15,5 +17,10 @@ public record CreateCategoryOutput
         Description = description;
         IsActive = isActive;
         CreatedAt = createdAt;
+    }
+
+    public static implicit operator CreateCategoryOutput(DomainEntity.Category category)
+    {
+        return new CreateCategoryOutput(category.Id, category.Name, category.Description, category.IsActive, category.CreatedAt);
     }
 }

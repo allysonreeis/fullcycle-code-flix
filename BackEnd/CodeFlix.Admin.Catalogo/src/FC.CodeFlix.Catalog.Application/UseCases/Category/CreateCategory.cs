@@ -1,4 +1,5 @@
 
+using System.Xml;
 using FC.CodeFlix.Catalog.Application.Interfaces;
 using FC.CodeFlix.Catalog.Domain.Repository;
 using DomainEntity = FC.CodeFlix.Catalog.Domain.Entity;
@@ -22,6 +23,11 @@ public class CreateCategory : ICreateCategory
         await _categoryRepository.Insert(category, cancellationToken);
         await _unitOfWork.Commit(cancellationToken);
 
-        return new CreateCategoryOutput(category.Id, category.Name, category.Description, category.IsActive, category.CreatedAt);
+        CreateCategoryOutput createCategoryOutput = category; // implicity operator
+        var c = new CreateCategoryOutput(category.Id, category.Name, category.Description, category.IsActive, category.CreatedAt);
+        var b = c;
+        Console.WriteLine(b.Name);
+        return createCategoryOutput;
+        // return new CreateCategoryOutput(category.Id, category.Name, category.Description, category.IsActive, category.CreatedAt);
     }
 }

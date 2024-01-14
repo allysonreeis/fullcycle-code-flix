@@ -27,7 +27,7 @@ public class CategoryTestFixture : BaseFixture
         return categoryDescription;
     }
 
-    public string GetInvalidCategoryName()
+    public string GetInvalidCategoryDescription()
     {
         var categoryDescription = Faker.Commerce.ProductDescription();
         while (categoryDescription.Length <= 10_000)

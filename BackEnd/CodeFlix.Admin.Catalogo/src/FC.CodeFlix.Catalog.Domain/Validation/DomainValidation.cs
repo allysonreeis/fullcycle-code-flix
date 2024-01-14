@@ -1,6 +1,6 @@
 using FC.CodeFlix.Catalog.Domain.Exceptions;
 
-namespace FC.CodeFlix.Catalog.Domain.SeedWork;
+namespace FC.CodeFlix.Catalog.Domain.Validation;
 
 public class DomainValidation
 {
