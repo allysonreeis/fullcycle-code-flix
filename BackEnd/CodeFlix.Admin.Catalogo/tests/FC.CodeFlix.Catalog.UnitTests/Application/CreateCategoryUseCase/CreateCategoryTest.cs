@@ -1,5 +1,6 @@
 using FC.CodeFlix.Catalog.Application.Interfaces;
 using FC.CodeFlix.Catalog.Application.UseCases.Category;
+using FC.CodeFlix.Catalog.Application.UseCases.Common;
 using FC.CodeFlix.Catalog.Domain.Entity;
 using FC.CodeFlix.Catalog.Domain.Exceptions;
 using FC.CodeFlix.Catalog.Domain.Repository;
@@ -50,7 +51,7 @@ public class CreateCategoryTest
         var output = await useCase.Handle(input, CancellationToken.None);
 
         output.Should().NotBeNull();
-        output.Should().BeOfType<CreateCategoryOutput>();
+        output.Should().BeOfType<CategoryModelOutput>();
         output.Description.Should().BeEmpty();
         output.IsActive.Should().BeTrue();
     }

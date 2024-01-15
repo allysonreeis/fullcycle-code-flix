@@ -3,6 +3,6 @@ using MediatR;
 
 namespace FC.CodeFlix.Catalog.Application.UseCases.GetCategory;
 
-public record GetCategoryInput(Guid Id) : IRequest<CategoryModelOutput>
+public interface IGetCategory : IRequestHandler<GetCategoryInput, CategoryModelOutput>
 {
 }
