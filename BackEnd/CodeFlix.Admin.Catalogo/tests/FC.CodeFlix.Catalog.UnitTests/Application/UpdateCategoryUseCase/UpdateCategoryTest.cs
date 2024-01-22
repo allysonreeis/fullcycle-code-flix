@@ -1,4 +1,5 @@
 using FC.CodeFlix.Catalog.Application.UseCases.Common;
+using FC.CodeFlix.Catalog.Application.UseCases.UpdateCategory;
 using FluentAssertions;
 using Moq;
 
@@ -26,12 +27,13 @@ public class UpdateCategoryTest
         )).ReturnsAsync(category);
 
         var input = new UpdateCategoryInput(
+            category.Id,
             _fixture.GetValidCategoryName(),
             _fixture.GetValidCategoryDescription(),
             !category.IsActive
         );
 
-        var useCase = new UpdateCategoryUseCase(repositoryMock.Object, unitOfWorkMock.Object);
+        var useCase = new UpdateCategory(repositoryMock.Object, unitOfWorkMock.Object);
 
         CategoryModelOutput result = await useCase.Handle(input, CancellationToken.None);
 
