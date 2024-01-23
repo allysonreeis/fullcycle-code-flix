@@ -3,4 +3,4 @@ using MediatR;
 
 namespace FC.CodeFlix.Catalog.Application.UseCases.UpdateCategory;
 
-public record UpdateCategoryInput(Guid Id, string Name, string Description, bool IsActive) : IRequest<CategoryModelOutput>;
+public record UpdateCategoryInput(Guid Id, string Name, string? Description = null, bool? IsActive = null) : IRequest<CategoryModelOutput>;

@@ -41,4 +41,36 @@ public class UpdateCategoryTestFixture : BaseFixture
 
     public bool GetRandomBoolean()
         => Faker.Random.Bool();
+
+    public UpdateCategoryInput GetInvalidInputLongName()
+    {
+        var categoryName = "";
+        while (categoryName.Length < 255)
+            categoryName += Faker.Commerce.Categories(1)[0];
+        var input = new UpdateCategoryInput(Guid.NewGuid(), categoryName, GetValidCategoryDescription(), GetRandomBoolean());
+
+        return input;
+    }
+
+    public UpdateCategoryInput GetInvalidInputShortName()
+    {
+        var categoryName = Faker.Commerce.Categories(1)[0];
+        var updateCategory = new UpdateCategoryInput(Guid.NewGuid(), categoryName[..2], GetValidCategoryDescription(), GetRandomBoolean());
+
+        return updateCategory;
+    }
+
+    public UpdateCategoryInput GetInvalidInputDescription()
+    {
+        var categoryDescription = Faker.Commerce.ProductDescription();
+        while (categoryDescription.Length <= 10_000)
+            categoryDescription += Faker.Commerce.ProductDescription();
+
+        var input = new UpdateCategoryInput(Guid.NewGuid(), GetValidCategoryName(), categoryDescription, GetRandomBoolean());
+
+        return input;
+    }
+
+    public UpdateCategoryInput GetInvalidInputDescriptionNull()
+        => new(Guid.NewGuid(), GetValidCategoryName(), null!, GetRandomBoolean());
 }
