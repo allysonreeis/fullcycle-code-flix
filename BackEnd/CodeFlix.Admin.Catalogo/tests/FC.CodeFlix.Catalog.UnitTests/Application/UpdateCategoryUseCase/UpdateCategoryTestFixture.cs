@@ -1,4 +1,5 @@
 using FC.CodeFlix.Catalog.Application.Interfaces;
+using FC.CodeFlix.Catalog.Application.UseCases.UpdateCategory;
 using FC.CodeFlix.Catalog.Domain.Entity;
 using FC.CodeFlix.Catalog.Domain.Repository;
 using FC.CodeFlix.Catalog.UnitTests.Common;
@@ -34,6 +35,9 @@ public class UpdateCategoryTestFixture : BaseFixture
             categoryDescription = categoryDescription[..10_000];
         return categoryDescription;
     }
+
+    public UpdateCategoryInput GetValidInput(Guid id)
+        => new(id, GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
 
     public bool GetRandomBoolean()
         => Faker.Random.Bool();
