@@ -36,8 +36,8 @@ public class UpdateCategoryTestFixture : BaseFixture
         return categoryDescription;
     }
 
-    public UpdateCategoryInput GetValidInput(Guid id)
-        => new(id, GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
+    public UpdateCategoryInput GetValidInput(Guid? id = null)
+        => new(id ?? Guid.NewGuid(), GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
 
     public bool GetRandomBoolean()
         => Faker.Random.Bool();
