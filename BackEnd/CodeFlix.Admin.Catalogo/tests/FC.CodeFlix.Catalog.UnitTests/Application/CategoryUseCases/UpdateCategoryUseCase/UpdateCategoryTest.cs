@@ -6,7 +6,7 @@ using FC.CodeFlix.Catalog.Domain.Exceptions;
 using FluentAssertions;
 using Moq;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.UpdateCategoryUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.UpdateCategoryUseCase;
 
 [Collection(nameof(UpdateCategoryTestFixture))]
 public class UpdateCategoryTest

@@ -2,10 +2,10 @@ using FC.CodeFlix.Catalog.Application.UseCases.ListCategory;
 using FC.CodeFlix.Catalog.Domain.Entity;
 using FC.CodeFlix.Catalog.Domain.Repository;
 using FC.CodeFlix.Catalog.Domain.SeedWork.SearchableRepository;
-using FC.CodeFlix.Catalog.UnitTests.Common;
+using FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.Common;
 using Moq;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.ListCategoriesUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.ListCategoriesUseCase;
 
 [CollectionDefinition(nameof(ListCategoriesTestFixture))]
 public class ListCategoriesTestFixtureCollection : ICollectionFixture<ListCategoriesTestFixture>
@@ -14,32 +14,13 @@ public class ListCategoriesTestFixtureCollection : ICollectionFixture<ListCatego
 }
 
 
-public class ListCategoriesTestFixture : BaseFixture
+public class ListCategoriesTestFixture : CategoryUseCasesBaseFixture
 {
     public Mock<ICategoryRepository> GetRepositoryMock() => new();
 
     public Category GetValidCategory()
             => new(GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
 
-    public string GetValidCategoryName()
-    {
-        var categoryName = "";
-        while (categoryName.Length < 3)
-            categoryName = Faker.Commerce.Categories(1)[0];
-        if (categoryName.Length > 255)
-            categoryName = categoryName[..255];
-        return categoryName;
-    }
-
-    public string GetValidCategoryDescription()
-    {
-        var categoryDescription = Faker.Commerce.ProductDescription();
-        if (categoryDescription.Length > 10_000)
-            categoryDescription = categoryDescription[..10_000];
-        return categoryDescription;
-    }
-
-    public bool GetRandomBoolean() => Faker.Random.Bool();
 
     public List<Category> GetValidCategoriesList(int length = 10)
     {

@@ -3,7 +3,7 @@ using FC.CodeFlix.Catalog.Application.UseCases.DeleteCategory;
 using FluentAssertions;
 using Moq;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.DeleteCategoryUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.DeleteCategoryUseCase;
 
 [Collection(nameof(DeleteCategoryTestFixture))]
 public class DeleteCategoryTest

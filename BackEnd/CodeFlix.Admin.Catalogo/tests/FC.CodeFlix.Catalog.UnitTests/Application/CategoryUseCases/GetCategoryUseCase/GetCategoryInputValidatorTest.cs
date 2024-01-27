@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using FC.CodeFlix.Catalog.Application.UseCases.GetCategory;
 using FluentAssertions;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.GetCategoryUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.GetCategoryUseCase;
 
 public class GetCategoryInputValidatorTest
 {

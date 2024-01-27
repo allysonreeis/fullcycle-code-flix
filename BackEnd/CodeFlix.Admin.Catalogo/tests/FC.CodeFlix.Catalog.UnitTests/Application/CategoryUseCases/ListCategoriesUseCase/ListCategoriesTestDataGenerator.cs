@@ -1,6 +1,6 @@
 using FC.CodeFlix.Catalog.Application.UseCases.ListCategory;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.ListCategoriesUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.ListCategoriesUseCase;
 
 public class ListCategoriesTestDataGenerator
 {

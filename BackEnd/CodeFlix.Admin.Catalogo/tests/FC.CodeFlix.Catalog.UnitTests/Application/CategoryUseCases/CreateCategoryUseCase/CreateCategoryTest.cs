@@ -7,7 +7,7 @@ using FC.CodeFlix.Catalog.Domain.Repository;
 using FluentAssertions;
 using Moq;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.CreateCategoryUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.CreateCategoryUseCase;
 
 [Collection(nameof(CreateCategoryTestFixture))]
 public class CreateCategoryTest

@@ -6,7 +6,7 @@ using FC.CodeFlix.Catalog.Domain.SeedWork.SearchableRepository;
 using FluentAssertions;
 using Moq;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.ListCategoriesUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.ListCategoriesUseCase;
 
 [Collection(nameof(ListCategoriesTestFixture))]
 public class ListCategoriesTest
@@ -28,7 +28,7 @@ public class ListCategoriesTest
         var outputRepositorySearch = new SearchOutput<Category>(
                 currentPage: input.Page,
                 perPage: input.PerPage,
-                items: (IReadOnlyList<Category>)categoriesList,
+                items: categoriesList,
                 total: new Random().Next(50, 200)
             );
 
@@ -141,7 +141,7 @@ public class ListCategoriesTest
         var outputRepositorySearch = new SearchOutput<Category>(
                 currentPage: input.Page,
                 perPage: input.PerPage,
-                items: (IReadOnlyList<Category>)categoriesList,
+                items: categoriesList,
                 total: new Random().Next(50, 200)
             );
 

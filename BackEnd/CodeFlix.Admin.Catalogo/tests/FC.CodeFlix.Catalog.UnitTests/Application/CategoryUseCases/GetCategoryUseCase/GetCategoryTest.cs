@@ -3,7 +3,7 @@ using FC.CodeFlix.Catalog.Application.UseCases.GetCategory;
 using FluentAssertions;
 using Moq;
 
-namespace FC.CodeFlix.Catalog.UnitTests.Application.GetCategoryUseCase;
+namespace FC.CodeFlix.Catalog.UnitTests.Application.CategoryUseCases.GetCategoryUseCase;
 
 [Collection(nameof(GetCategoryTestFixture))]
 public class GetCategoryTest

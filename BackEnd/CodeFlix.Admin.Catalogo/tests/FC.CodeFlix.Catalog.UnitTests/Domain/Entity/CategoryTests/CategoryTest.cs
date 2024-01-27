@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using FC.CodeFlix.Catalog.Domain.Entity;
 using FC.CodeFlix.Catalog.Domain.Exceptions;
 using FluentAssertions;
