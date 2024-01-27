@@ -1,5 +1,9 @@
 using System.Formats.Tar;
+using FC.CodeFlix.Catalog.Application.UseCases.Common;
+using FC.CodeFlix.Catalog.Application.UseCases.ListCategory;
 using FC.CodeFlix.Catalog.Domain.Entity;
+using FC.CodeFlix.Catalog.Domain.SeedWork.SearchableRepository;
+using FluentAssertions;
 using Moq;
 
 namespace FC.CodeFlix.Catalog.UnitTests.Application.ListCategoriesUseCase;
@@ -24,24 +28,25 @@ public class ListCategoriesTest
             perPage: 10,
             search: "search",
             sort: "name",
-            dir: "asc"
+            dir: SearchOrder.Asc
         );
 
-        var outputRepositorySearch = new OutputSearch<Category>(
+        var outputRepositorySearch = new SearchOutput<Category>(
                 currentPage: input.Page,
                 perPage: input.PerPage,
-                Items: (IReadOnlyList<Category>)categoriesList,
-                totalPages: 10
+                items: (IReadOnlyList<Category>)categoriesList,
+                total: 10
             );
 
-        repositoryMock.Setup(x => x.ListAsync(
-                It.IsAny<SearchInput>(
+        repositoryMock.Setup(x => x.Search(
+                It.Is<SearchInput>(
                     searchInput => searchInput.Page == input.Page &&
                                    searchInput.PerPage == input.PerPage &&
                                    searchInput.Search == input.Search &&
-                                   searchInput.Sort == input.Sort &&
-                                   searchInput.Dir == input.Dir
-                ), It.IsAny<CancellationToken>()
+                                   searchInput.OrderBy == input.Sort &&
+                                   searchInput.Order == input.Dir
+                ),
+                It.IsAny<CancellationToken>()
             ))
             .ReturnsAsync(outputRepositorySearch);
 
@@ -53,25 +58,25 @@ public class ListCategoriesTest
         output.PerPage.Should().Be(outputRepositorySearch.PerPage);
         output.Total.Should().Be(outputRepositorySearch.Total);
         output.Items.Should().HaveCount(outputRepositorySearch.Items.Count);
-        output.Items.Foreach(outputItem =>
+        ((List<CategoryModelOutput>)output.Items).ForEach(outputItem =>
             {
                 var repositoryCategory = outputRepositorySearch.Items
-                    .Find(x => x.Id == outputItem.Id);
+                    .FirstOrDefault(x => x.Id == outputItem.Id);
                 outputItem.Should().NotBeNull();
-                outputItem.Name.Should().Be(repositoryCategory.Name);
+                outputItem.Name.Should().Be(repositoryCategory!.Name);
                 outputItem.Description.Should().Be(repositoryCategory.Description);
-                outputItem.Active.Should().Be(repositoryCategory.Active);
+                outputItem.IsActive.Should().Be(repositoryCategory.IsActive);
                 outputItem.CreatedAt.Should().Be(repositoryCategory.CreatedAt);
             }
         );
 
-        repositoryMock.Verify(x => x.ListAsync(
-                It.IsAny<SearchInput>(
+        repositoryMock.Verify(x => x.Search(
+                It.Is<SearchInput>(
                     searchInput => searchInput.Page == input.Page &&
                                    searchInput.PerPage == input.PerPage &&
                                    searchInput.Search == input.Search &&
-                                   searchInput.Sort == input.Sort &&
-                                   searchInput.Dir == input.Dir
+                                   searchInput.OrderBy == input.Sort &&
+                                   searchInput.Order == input.Dir
                 ), It.IsAny<CancellationToken>()
             ),
             Times.Once
