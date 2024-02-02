@@ -1,6 +1,10 @@
+using FC.CodeFlix.Catalog.Infra.Data.EF;
+using FluentAssertions;
+using Repository = FC.CodeFlix.Catalog.Infra.Data.EF.Repositories;
+
 namespace FC.CodeFlix.Catalog.IntegrationTests.Infra.Data.EF.Repositories.CategoryRepository;
 
-[Collection(nameof(CategoryRepositoryTest))]
+[Collection(nameof(CategoryRepositoryTestFixture))]
 public class CategoryRepositoryTest
 {
     private readonly CategoryRepositoryTestFixture _fixture;
@@ -11,16 +15,16 @@ public class CategoryRepositoryTest
     }
 
     [Fact]
-    public async void Insert()
+    public async Task Insert()
     {
         CodeFlixCatalogDbContext dbContext = _fixture.CreateDbContext();
         var exampleCategory = _fixture.GetExampleCategory();
-        var categoryRepository = new CategoryRepository(dbContext);
+        var categoryRepository = new Repository.CategoryRepository(dbContext);
 
         await categoryRepository.Insert(exampleCategory, CancellationToken.None);
-        await dbContext.SaveChanges(CancellationToken.None);
+        await dbContext.SaveChangesAsync(CancellationToken.None);
 
-        var dbCategory = await dbContext.Categories.Find(exampleCategory.Id);
+        var dbCategory = await dbContext.Categories.FindAsync(exampleCategory.Id);
         dbCategory.Should().NotBeNull();
         dbCategory.Name.Should().Be(exampleCategory.Name);
         dbCategory.Description.Should().Be(exampleCategory.Description);

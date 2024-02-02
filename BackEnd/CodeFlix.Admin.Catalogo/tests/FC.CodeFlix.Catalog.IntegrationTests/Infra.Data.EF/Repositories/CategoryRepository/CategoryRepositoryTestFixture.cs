@@ -1,15 +1,18 @@
 using FC.CodeFlix.Catalog.Domain.Entity;
+using FC.CodeFlix.Catalog.Infra.Data.EF;
 using FC.CodeFlix.Catalog.IntegrationTests.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace FC.CodeFlix.Catalog.IntegrationTests.Infra.Data.EF.Repositories.CategoryRepository;
 
-[CollectionDefinition(nameof(CategoryRepositoryTestFixtureCollection))]
+[CollectionDefinition(nameof(CategoryRepositoryTestFixture))]
 public class CategoryRepositoryTestFixtureCollection : ICollectionFixture<CategoryRepositoryTestFixture>
 {
 }
 
 public class CategoryRepositoryTestFixture : BaseFixture
 {
+
     public Category GetExampleCategory()
         => new(GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
 
