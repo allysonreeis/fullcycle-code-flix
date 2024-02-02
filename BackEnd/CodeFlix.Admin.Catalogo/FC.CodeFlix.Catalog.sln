@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.CodeFlix.Catalog.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.CodeFlix.Catalog.Application", "src\FC.CodeFlix.Catalog.Application\FC.CodeFlix.Catalog.Application.csproj", "{524FB91B-9DAD-4419-BEE2-756D0DD06F89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.CodeFlix.Catalog.IntegrationTests", "tests\FC.CodeFlix.Catalog.IntegrationTests\FC.CodeFlix.Catalog.IntegrationTests.csproj", "{B9A2086D-C91C-4B2A-AEB6-BCE6764FE2B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.CodeFlix.Catalog.Infra.Data.EF", "src\FC.CodeFlix.Catalog.Infra.Data.EF\FC.CodeFlix.Catalog.Infra.Data.EF.csproj", "{9D6B980C-3843-4B1C-B673-B44AE64D1C2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +38,20 @@ Global
 		{524FB91B-9DAD-4419-BEE2-756D0DD06F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{524FB91B-9DAD-4419-BEE2-756D0DD06F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{524FB91B-9DAD-4419-BEE2-756D0DD06F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9A2086D-C91C-4B2A-AEB6-BCE6764FE2B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A2086D-C91C-4B2A-AEB6-BCE6764FE2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A2086D-C91C-4B2A-AEB6-BCE6764FE2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A2086D-C91C-4B2A-AEB6-BCE6764FE2B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6B980C-3843-4B1C-B673-B44AE64D1C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6B980C-3843-4B1C-B673-B44AE64D1C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6B980C-3843-4B1C-B673-B44AE64D1C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6B980C-3843-4B1C-B673-B44AE64D1C2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{40B9A624-D95F-4B38-A54A-CA26CBAB6E92} = {33DD3707-9D23-4F38-8F65-9088CADA0F22}
 		{BD199AD8-D630-4CB7-9A2D-83F218FF9E25} = {8B4CF63B-5455-4F97-A1C1-967CDDB08E00}
 		{524FB91B-9DAD-4419-BEE2-756D0DD06F89} = {8B4CF63B-5455-4F97-A1C1-967CDDB08E00}
+		{B9A2086D-C91C-4B2A-AEB6-BCE6764FE2B2} = {33DD3707-9D23-4F38-8F65-9088CADA0F22}
+		{9D6B980C-3843-4B1C-B673-B44AE64D1C2D} = {8B4CF63B-5455-4F97-A1C1-967CDDB08E00}
 	EndGlobalSection
 EndGlobal
