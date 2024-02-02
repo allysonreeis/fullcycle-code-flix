@@ -1,1 +1,1 @@
-![image](https://github.com/allysonreeis/fullcycle-code-flix/assets/5386352/9e0fb9ef-3cc0-4a1b-bad9-78afd51fb889)
+![image](https://github.com/allysonreeis/fullcycle-code-flix/assets/5386352/ed502dbc-0481-45b6-b2a2-cde7495dc5b2)
