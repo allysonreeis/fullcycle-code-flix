@@ -25,9 +25,10 @@ public class CategoryRepository : ICategoryRepository
         throw new NotImplementedException();
     }
 
-    public Task<Category> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<Category> Get(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var category = await _categories.FindAsync(id, cancellationToken);
+        return category;
     }
 
     public Task<SearchOutput<Category>> Search(SearchInput searchInput, CancellationToken cancellationToken)

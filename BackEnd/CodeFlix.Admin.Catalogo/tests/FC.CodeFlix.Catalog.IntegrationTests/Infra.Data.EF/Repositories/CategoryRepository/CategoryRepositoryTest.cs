@@ -31,4 +31,25 @@ public class CategoryRepositoryTest
         dbCategory.IsActive.Should().Be(exampleCategory.IsActive);
         dbCategory.CreatedAt.Should().Be(exampleCategory.CreatedAt);
     }
+
+    [Fact]
+    public async Task Get()
+    {
+        CodeFlixCatalogDbContext dbContext = _fixture.CreateDbContext();
+        var exampleCategoryList = _fixture.GetExampleCategoryList();
+        var exampleCategory = _fixture.GetExampleCategory();
+        exampleCategoryList.Add(exampleCategory);
+        var categoryRepository = new Repository.CategoryRepository(dbContext);
+        await dbContext.AddRangeAsync(exampleCategoryList);
+        await dbContext.SaveChangesAsync(CancellationToken.None);
+
+        var dbCategory = await categoryRepository.Get(exampleCategory.Id, CancellationToken.None);
+
+        dbCategory.Should().NotBeNull();
+        dbCategory.Id.Should().Be(exampleCategory.Id);
+        dbCategory.Name.Should().Be(exampleCategory.Name);
+        dbCategory.Description.Should().Be(exampleCategory.Description);
+        dbCategory.IsActive.Should().Be(exampleCategory.IsActive);
+        dbCategory.CreatedAt.Should().Be(exampleCategory.CreatedAt);
+    }
 }

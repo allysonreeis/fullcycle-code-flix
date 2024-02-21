@@ -16,6 +16,9 @@ public class CategoryRepositoryTestFixture : BaseFixture
     public Category GetExampleCategory()
         => new(GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
 
+    public List<Category> GetExampleCategoryList(int Length = 10)
+        => Enumerable.Range(1, Length).Select(_ => GetExampleCategory()).ToList();
+
     public bool GetRandomBoolean()
         => Faker.Random.Bool();
 
