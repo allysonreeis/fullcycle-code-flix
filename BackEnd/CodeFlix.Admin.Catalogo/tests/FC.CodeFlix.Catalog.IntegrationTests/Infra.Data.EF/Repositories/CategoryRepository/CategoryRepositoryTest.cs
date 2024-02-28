@@ -71,4 +71,31 @@ public class CategoryRepositoryTest
         await task.Should().ThrowAsync<NotFoundException>()
             .WithMessage($"Category '{exampleId}' not found");
     }
+
+
+    [Fact]
+    public async Task Update()
+    {
+        CodeFlixCatalogDbContext dbContext = _fixture.CreateDbContext();
+        var exampleCategoryList = _fixture.GetExampleCategoryList();
+        var exampleCategory = _fixture.GetExampleCategory();
+        var newCategory = _fixture.GetExampleCategory();
+        exampleCategoryList.Add(exampleCategory);
+        var categoryRepository = new Repository.CategoryRepository(dbContext);
+        await dbContext.AddRangeAsync(exampleCategoryList);
+        await dbContext.SaveChangesAsync(CancellationToken.None);
+
+        exampleCategory.Update(newCategory.Name, newCategory.Description);
+
+        await categoryRepository.Update(exampleCategory, CancellationToken.None);
+        await dbContext.SaveChangesAsync();
+        var dbCategory = await dbContext.Categories.FindAsync(exampleCategory.Id);
+
+        dbCategory.Should().NotBeNull();
+        dbCategory.Id.Should().Be(exampleCategory.Id);
+        dbCategory.Name.Should().Be(exampleCategory.Name);
+        dbCategory.Description.Should().Be(exampleCategory.Description);
+        dbCategory.IsActive.Should().Be(exampleCategory.IsActive);
+        dbCategory.CreatedAt.Should().Be(exampleCategory.CreatedAt);
+    }
 }

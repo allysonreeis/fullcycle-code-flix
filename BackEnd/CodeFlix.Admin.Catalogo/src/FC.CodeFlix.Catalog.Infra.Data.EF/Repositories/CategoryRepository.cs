@@ -33,13 +33,15 @@ public class CategoryRepository : ICategoryRepository
         return category!;
     }
 
+    public async Task Update(Category aggregate, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(_categories.Update(aggregate));
+    }
+
     public Task<SearchOutput<Category>> Search(SearchInput searchInput, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public Task Update(Category aggregate, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+
 }
