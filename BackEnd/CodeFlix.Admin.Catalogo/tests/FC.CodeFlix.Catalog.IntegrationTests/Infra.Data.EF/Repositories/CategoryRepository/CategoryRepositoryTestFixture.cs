@@ -43,7 +43,8 @@ public class CategoryRepositoryTestFixture : BaseFixture
     public CodeFlixCatalogDbContext CreateDbContext()
     {
         var options = new DbContextOptionsBuilder<CodeFlixCatalogDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            // .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .UseInMemoryDatabase("integration-tests-db")
             .Options;
         return new CodeFlixCatalogDbContext(options);
     }
