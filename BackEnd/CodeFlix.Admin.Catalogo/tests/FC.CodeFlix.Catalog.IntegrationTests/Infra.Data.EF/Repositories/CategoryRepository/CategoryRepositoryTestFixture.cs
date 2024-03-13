@@ -40,12 +40,18 @@ public class CategoryRepositoryTestFixture : BaseFixture
         return categoryDescription;
     }
 
-    public CodeFlixCatalogDbContext CreateDbContext()
+    public CodeFlixCatalogDbContext CreateDbContext(bool preserveData = false)
     {
+
         var options = new DbContextOptionsBuilder<CodeFlixCatalogDbContext>()
             // .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .UseInMemoryDatabase("integration-tests-db")
             .Options;
-        return new CodeFlixCatalogDbContext(options);
+
+        var context = new CodeFlixCatalogDbContext(options);
+
+        if (preserveData is false)
+            context.Database.EnsureDeleted();
+        return context;
     }
 }

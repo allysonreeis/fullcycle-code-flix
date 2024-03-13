@@ -21,10 +21,7 @@ public class CategoryRepository : ICategoryRepository
         await _categories.AddAsync(aggregate, cancellationToken);
     }
 
-    public Task Delete(Category aggregate, CancellationToken cancellationToken)
-    {
-        return Task.FromResult(_categories.Remove(aggregate));
-    }
+    public Task Delete(Category aggregate, CancellationToken cancellationToken) => Task.FromResult(_categories.Remove(aggregate));
 
     public async Task<Category> Get(Guid id, CancellationToken cancellationToken)
     {
@@ -38,9 +35,11 @@ public class CategoryRepository : ICategoryRepository
         await Task.FromResult(_categories.Update(aggregate));
     }
 
-    public Task<SearchOutput<Category>> Search(SearchInput searchInput, CancellationToken cancellationToken)
+    public async Task<SearchOutput<Category>> Search(SearchInput searchInput, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var total = await _categories.CountAsync(cancellationToken);
+        var items = await _categories.ToListAsync(cancellationToken);
+        return new SearchOutput<Category>(searchInput.Page, searchInput.PerPage, total, items);
     }
 
 
