@@ -40,6 +40,9 @@ public class CategoryRepositoryTestFixture : BaseFixture
         return categoryDescription;
     }
 
+    public List<Category> GetExampleCategoryListWithNames(List<string> names)
+        => names.Select(name => new Category(name, GetValidCategoryDescription(), GetRandomBoolean())).ToList();
+
     public CodeFlixCatalogDbContext CreateDbContext(bool preserveData = false)
     {
 

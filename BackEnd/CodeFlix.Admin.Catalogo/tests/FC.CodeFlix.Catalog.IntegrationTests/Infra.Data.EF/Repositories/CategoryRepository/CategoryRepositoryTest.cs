@@ -195,4 +195,52 @@ public class CategoryRepositoryTest
         }
 
     }
+
+    [Theory]
+    [InlineData("Comedy", 1, 5, 1, 1)]
+    public async Task SearchByText(string search,
+        int page,
+        int perPage,
+        int expectedQuantityItemsReturned,
+        int expectedQuantityTotalItems)
+    {
+        var exampleCategoryList = _fixture.GetExampleCategoryListWithNames([
+            "Action",
+            "Adventure",
+            "Comedy",
+            "Drama",
+            "Horror",
+            "Musical"
+        ]);
+
+        CodeFlixCatalogDbContext dbContext = _fixture.CreateDbContext();
+        await dbContext.AddRangeAsync(exampleCategoryList);
+        await dbContext.SaveChangesAsync(CancellationToken.None);
+        var categoryRepository = new Repository.CategoryRepository(dbContext);
+
+        var searchInput = new SearchInput(page, perPage, search, "", SearchOrder.Asc);
+
+        var output = await categoryRepository.Search(searchInput, CancellationToken.None);
+
+        output.Should().NotBeNull();
+        output.Items.Should().NotBeNull();
+        output.CurrentPage.Should().Be(searchInput.Page);
+        output.PerPage.Should().Be(searchInput.PerPage);
+        output.Total.Should().Be(expectedQuantityTotalItems);
+        output.Items.Should().HaveCount(expectedQuantityItemsReturned);
+
+        foreach (Category outputItem in output.Items)
+        {
+            var exampleItem = exampleCategoryList.Find(category => category.Id == outputItem.Id);
+            exampleItem.Should().NotBeNull();
+
+            outputItem.Should().NotBeNull();
+            outputItem.Id.Should().Be(exampleItem.Id);
+            outputItem.Name.Should().Be(exampleItem.Name);
+            outputItem.Description.Should().Be(exampleItem.Description);
+            outputItem.IsActive.Should().Be(exampleItem.IsActive);
+            outputItem.CreatedAt.Should().Be(exampleItem.CreatedAt);
+        }
+
+    }
 }

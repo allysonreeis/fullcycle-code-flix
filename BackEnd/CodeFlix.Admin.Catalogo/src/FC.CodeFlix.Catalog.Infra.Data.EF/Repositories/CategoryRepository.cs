@@ -38,8 +38,15 @@ public class CategoryRepository : ICategoryRepository
     public async Task<SearchOutput<Category>> Search(SearchInput searchInput, CancellationToken cancellationToken)
     {
         var toSkip = searchInput.PerPage * (searchInput.Page - 1);
-        var total = await _categories.CountAsync(cancellationToken);
-        var items = await _categories.AsNoTracking()
+
+        var query = _categories.AsNoTracking();
+        if (!string.IsNullOrWhiteSpace(searchInput.Search))
+        {
+            query = query.Where(c => c.Name.Contains(searchInput.Search));
+        }
+
+        var total = await query.CountAsync(cancellationToken);
+        var items = await query
             .Skip(toSkip)
             .Take(searchInput.PerPage)
             .ToListAsync(cancellationToken);
