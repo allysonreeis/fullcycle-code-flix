@@ -243,4 +243,48 @@ public class CategoryRepositoryTest
         }
 
     }
+
+    [Theory]
+    [InlineData("name", "asc")]
+    [InlineData("name", "desc")]
+    [InlineData("id", "asc")]
+    [InlineData("id", "desc")]
+    [InlineData("createdAt", "asc")]
+    [InlineData("createdAt", "desc")]
+    [InlineData("", "asc")]
+    public async Task SearchOrdered(string orderBy, string order)
+    {
+        var exampleCategoryList = _fixture.GetExampleCategoryList(10);
+
+        CodeFlixCatalogDbContext dbContext = _fixture.CreateDbContext();
+        await dbContext.AddRangeAsync(exampleCategoryList);
+        await dbContext.SaveChangesAsync(CancellationToken.None);
+        var categoryRepository = new Repository.CategoryRepository(dbContext);
+        var searchOrder = order.ToLower() == "asc" ? SearchOrder.Asc : SearchOrder.Desc;
+        var searchInput = new SearchInput(1, 20, "", orderBy, searchOrder);
+
+        var output = await categoryRepository.Search(searchInput, CancellationToken.None);
+
+        var expectedList = _fixture.CloneCategoryListOrdered(exampleCategoryList, orderBy, searchOrder);
+        output.Should().NotBeNull();
+        output.Items.Should().NotBeNull();
+        output.CurrentPage.Should().Be(searchInput.Page);
+        output.PerPage.Should().Be(searchInput.PerPage);
+        output.Total.Should().Be(exampleCategoryList.Count);
+        output.Items.Should().HaveCount(exampleCategoryList.Count);
+
+        for (int i = 0; i < output.Items.Count; i++)
+        {
+            var outputItem = output.Items[i];
+            var expectedItem = expectedList[i];
+
+            outputItem.Should().NotBeNull();
+            outputItem.Id.Should().Be(expectedItem.Id);
+            outputItem.Name.Should().Be(expectedItem.Name);
+            outputItem.Description.Should().Be(expectedItem.Description);
+            outputItem.IsActive.Should().Be(expectedItem.IsActive);
+            outputItem.CreatedAt.Should().Be(expectedItem.CreatedAt);
+        }
+
+    }
 }
