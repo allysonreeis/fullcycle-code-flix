@@ -44,21 +44,6 @@ public class CategoryRepositoryTestFixture : BaseFixture
     public List<Category> GetExampleCategoryListWithNames(List<string> names)
         => names.Select(name => new Category(name, GetValidCategoryDescription(), GetRandomBoolean())).ToList();
 
-    public CodeFlixCatalogDbContext CreateDbContext(bool preserveData = false)
-    {
-
-        var options = new DbContextOptionsBuilder<CodeFlixCatalogDbContext>()
-            // .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .UseInMemoryDatabase("integration-tests-db")
-            .Options;
-
-        var context = new CodeFlixCatalogDbContext(options);
-
-        if (preserveData is false)
-            context.Database.EnsureDeleted();
-        return context;
-    }
-
     public List<Category> CloneCategoryListOrdered(List<Category> categories, string orderBy, SearchOrder searchOrder)
     {
         var categoriesClone = new List<Category>(categories);
