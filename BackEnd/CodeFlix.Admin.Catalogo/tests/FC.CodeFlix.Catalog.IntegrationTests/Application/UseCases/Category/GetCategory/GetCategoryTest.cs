@@ -1,4 +1,5 @@
-﻿using FC.CodeFlix.Catalog.Application.UseCases.GetCategory;
+﻿using FC.CodeFlix.Catalog.Application.Exceptions;
+using FC.CodeFlix.Catalog.Application.UseCases.GetCategory;
 using FC.CodeFlix.Catalog.Infra.Data.EF.Repositories;
 using FluentAssertions;
 using System;
@@ -39,5 +40,21 @@ public class GetCategoryTest
         output.Description.Should().Be(exampleCategory.Description);
         output.IsActive.Should().Be(exampleCategory.IsActive);
         output.CreatedAt.Should().NotBeSameDateAs(default);
+    }
+
+    [Fact]
+    public async Task NotFoundExceptionWhenCategoryDoesntExist()
+    {
+        var exampleCategory = _fixture.GetExampleCategory();
+        var context = _fixture.CreateDbContext();
+        context.Categories.Add(exampleCategory);
+        var repository = new CategoryRepository(context);
+        var exampleGuid = Guid.NewGuid();
+
+        var useCase = new UseCase.GetCategory(repository);
+        var input = new GetCategoryInput(exampleGuid);
+        var task = async () => await useCase.Handle(input, CancellationToken.None);
+
+        await task.Should().ThrowAsync<NotFoundException>().WithMessage($"Category '{input.Id}' not found");
     }
 }
