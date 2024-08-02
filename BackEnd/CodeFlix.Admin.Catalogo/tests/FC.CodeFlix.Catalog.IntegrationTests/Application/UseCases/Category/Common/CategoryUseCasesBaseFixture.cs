@@ -1,23 +1,14 @@
-using FC.CodeFlix.Catalog.Domain.Entity;
-using FC.CodeFlix.Catalog.Domain.SeedWork.SearchableRepository;
-using FC.CodeFlix.Catalog.Infra.Data.EF;
+﻿using FC.CodeFlix.Catalog.Domain.SeedWork.SearchableRepository;
 using FC.CodeFlix.Catalog.IntegrationTests.Base;
-using Microsoft.EntityFrameworkCore;
+using DM = FC.CodeFlix.Catalog.Domain.Entity;
 
-namespace FC.CodeFlix.Catalog.IntegrationTests.Infra.Data.EF.Repositories.CategoryRepository;
-
-[CollectionDefinition(nameof(CategoryRepositoryTestFixture))]
-public class CategoryRepositoryTestFixtureCollection : ICollectionFixture<CategoryRepositoryTestFixture>
+namespace FC.CodeFlix.Catalog.IntegrationTests.Application.UseCases.Category.Common;
+public class CategoryUseCasesBaseFixture : BaseFixture
 {
-}
-
-public class CategoryRepositoryTestFixture : BaseFixture
-{
-
-    public Category GetExampleCategory()
+    public DM.Category GetExampleCategory()
         => new(GetValidCategoryName(), GetValidCategoryDescription(), GetRandomBoolean());
 
-    public List<Category> GetExampleCategoryList(int Length = 10)
+    public List<DM.Category> GetExampleCategoryList(int Length = 10)
         => Enumerable.Range(1, Length).Select(_ => GetExampleCategory()).ToList();
 
     public bool GetRandomBoolean()
@@ -41,12 +32,12 @@ public class CategoryRepositoryTestFixture : BaseFixture
         return categoryDescription;
     }
 
-    public List<Category> GetExampleCategoryListWithNames(List<string> names)
-        => names.Select(name => new Category(name, GetValidCategoryDescription(), GetRandomBoolean())).ToList();
+    public List<DM.Category> GetExampleCategoryListWithNames(List<string> names)
+        => names.Select(name => new DM.Category(name, GetValidCategoryDescription(), GetRandomBoolean())).ToList();
 
-    public List<Category> CloneCategoryListOrdered(List<Category> categories, string orderBy, SearchOrder searchOrder)
+    public List<DM.Category> CloneCategoryListOrdered(List<DM.Category> categories, string orderBy, SearchOrder searchOrder)
     {
-        var categoriesClone = new List<Category>(categories);
+        var categoriesClone = new List<DM.Category>(categories);
         categoriesClone = (orderBy.ToLower(), searchOrder) switch
         {
             ("name", SearchOrder.Asc) => categoriesClone.OrderBy(c => c.Name).ToList(),
